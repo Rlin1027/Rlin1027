@@ -43,6 +43,6 @@ I enjoy turning complex problems into clean, user-facing products — from gamif
 ## GitHub Stats
 
 <p>
-  <img height="160" src="https://github-readme-stats.vercel.app/api?username=Rlin1027&show_icons=true&theme=default&hide_border=true&count_private=true" />
-  <img height="160" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Rlin1027&layout=compact&theme=default&hide_border=true" />
+  <img height="160" src="https://github-readme-stats-one-nu-91.vercel.app/api?username=Rlin1027&show_icons=true&theme=default&hide_border=true&count_private=true" />
+  <img height="160" src="https://github-readme-stats-one-nu-91.vercel.app/api/top-langs/?username=Rlin1027&layout=compact&theme=default&hide_border=true" />
 </p>
