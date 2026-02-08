@@ -1,4 +1,4 @@
-# Hi, I'm Red 👋
+# Overview
 
 **Full-stack engineer based in Taiwan**, building at the intersection of AI, automation, and civic technology.
 
