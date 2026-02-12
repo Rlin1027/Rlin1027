@@ -1,6 +1,6 @@
 # Overview
 
-**Full-stack engineer based in Taiwan**, building at the intersection of AI, automation, and civic technology.
+**Full-stack based in Taiwan**, building at the intersection of AI, automation, and interesting technology.
 
 I enjoy turning complex problems into clean, user-facing products — from personal AI assistants and ML research tools to gamified civic-data platforms and production automation pipelines.
 
