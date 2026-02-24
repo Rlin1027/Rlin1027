@@ -1,18 +1,220 @@
 # Overview
 
-**Full-stack developer based in Taiwan**, building at the intersection of AI research, quantitative finance, and automation.
+**Full-stack developer based in Taiwan**, building at the intersection of AI Agents, Robotics, and Quantitative Finance.
 
-I deep-dive into high-impact open-source AI projects — analyzing architectures, adding benchmarking toolkits, and building optimization layers. When I'm not dissecting ML models, I build production systems: from a 7-model stock valuation engine to n8n automation pipelines and gamified civic-data platforms.
+I build production systems that solve real problems — an AI-powered ROS migration engine for the robotics community, a Gemini-driven personal assistant on Telegram, and a 7-model quantitative valuation system for Taiwan stocks. When I'm not shipping products, I deep-dive into high-impact open-source AI projects — analyzing architectures, adding benchmarking toolkits, and building optimization layers.
 
 ---
 
-## What I Build
+## Flagship Projects
 
-**AI/ML Research Toolkits** — Architecture analysis, benchmarking & optimization for 25+ popular open-source AI projects (LLMs, TTS, Video, Agents)
-**Quantitative Finance** — Multi-model stock valuation systems, ETF dashboards, automated weekly reports with LLM-enhanced analysis
-**AI Assistants & Developer Tools** — Telegram bots with Gemini agents, repo-to-prompt converters, LLM framework extensions
-**Automation** — n8n workflows for data pipelines, music rendering, RAG systems, and fault-tolerant batch processing
-**Full-Stack Apps** — Real-time dashboards, gamified civic data platforms, playlist organizers, visual storytelling tools
+### 1. ROSForge — AI-Powered ROS1 to ROS2 Migration Engine
+
+> **The first AI-driven tool to automate legacy robotics code migration.**
+
+<table>
+<tr><td>
+
+**Problem:** Migrating a mid-size ROS1 package (~5K–10K LoC) takes a senior engineer 2–4 weeks of manual refactoring. With ROS1 Noetic EOL (May 2025), thousands of packages face abandonment.
+
+**Solution:** One command to reforge your legacy robotics packages. ROSForge uses LLMs to *understand* code semantics — not just regex-replace — and delivers end-to-end migration with automatic build verification and fix loops.
+
+**What makes it unique:**
+- **BYOM (Bring Your Own Model)** — freely switch between Claude, Gemini, and OpenAI
+- **Full-spectrum migration** — C++ (roscpp→rclcpp), Python (rospy→rclpy), Launch files (XML→Python), CMakeLists.txt, package.xml, msg/srv definitions
+- **Validate-Fix loop** — auto `colcon build` + AI-driven error repair
+- **Interactive mode** — pause at critical steps for human review
+- **Workspace-level batch migration** with cross-package dependency resolution
+- **Custom rules** via `.rosforge/rules.yaml`
+
+</td><td width="320">
+
+**Stack**
+```
+Python 3.14 | Click CLI
+Pipeline Architecture
+├─ Ingest (Parsers)
+├─ Analyze (Deps)
+├─ Transform (AI)
+├─ Validate (Build)
+└─ Report (Diff)
+```
+
+**Pipeline**
+```
+rosforge migrate ./pkg
+  ↓ Parse AST/IR
+  ↓ Resolve dependencies
+  ↓ AI transform (BYOM)
+  ↓ colcon build
+  ↓ Auto-fix if failed
+  ↓ Generate report
+```
+
+</td></tr>
+</table>
+
+```bash
+pip install rosforge
+rosforge migrate ./my_ros1_package          # End-to-end migration
+rosforge analyze ./my_ros1_package          # Analysis only (no changes)
+rosforge config set engine claude-code      # Switch AI engine
+```
+
+[![Repo](https://img.shields.io/badge/GitHub-ROSForge-181717?style=flat&logo=github)](https://github.com/Rlin1027/ROSForge)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![ROS](https://img.shields.io/badge/ROS-22314E?style=flat&logo=ros&logoColor=white)
+
+---
+
+### 2. NanoGemClaw — Gemini-Powered Personal AI Assistant
+
+> **A modular, containerized AI assistant on Telegram — forked from NanoClaw, rebuilt for Gemini.**
+
+<table>
+<tr><td>
+
+**What it does:** A full-featured AI assistant that runs Gemini agents in isolated containers, delivered via Telegram with a 9-module real-time web dashboard.
+
+**Key differentiators vs NanoClaw (Claude-based):**
+
+| | NanoClaw | NanoGemClaw |
+|---|---------|-------------|
+| Agent | Claude SDK | Gemini CLI + Direct API |
+| Messaging | WhatsApp | Telegram Bot API |
+| Cost | $100/mo | Free tier (60 req/min) |
+| Architecture | Monolith | Modular monorepo (7 packages) |
+| Media | Text only | Photo, Voice, Video, Document |
+| Browsing | Search only | Full Playwright automation |
+
+**Highlights:**
+- **7-package monorepo** — each package reusable independently
+- **Plugin system** — custom tools, hooks, routes, background services
+- **Fast Path** — Direct Gemini API streaming with context caching (75-90% token cost reduction)
+- **Knowledge Base** — per-group FTS5 full-text search
+- **Scheduling** — natural language → cron (`"every morning at 8am"`)
+- **Multi-modal** — voice transcription, image generation (Imagen 3), document parsing
+- **Web Dashboard** — 9-module real-time SPA with Socket.IO
+
+</td><td width="320">
+
+**Monorepo**
+```
+nanogemclaw/
+├── packages/
+│   ├── core/
+│   ├── db/
+│   ├── gemini/
+│   ├── telegram/
+│   ├── server/
+│   ├── plugin-api/
+│   └── dashboard/
+├── app/
+├── container/
+└── docs/
+```
+
+**Dashboard Modules**
+```
+Overview    | Logs
+Memory      | Group Detail
+Tasks       | Analytics
+Knowledge   | Calendar
+Settings
+```
+
+</td></tr>
+</table>
+
+```bash
+git clone https://github.com/Rlin1027/NanoGemClaw.git
+cp .env.example .env    # Add TELEGRAM_BOT_TOKEN + GEMINI_API_KEY
+npm install && npm run dev
+```
+
+[![Repo](https://img.shields.io/badge/GitHub-NanoGemClaw-181717?style=flat&logo=github)](https://github.com/Rlin1027/NanoGemClaw)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Gemini](https://img.shields.io/badge/Gemini-886FBF?style=flat&logo=googlegemini&logoColor=white)
+![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=flat&logo=telegram&logoColor=white)
+
+---
+
+### 3. TaiwanStockVECalculator — 7-Model Stock Valuation System
+
+> **Quantitative valuation engine for Taiwan stocks with LLM-enhanced classification and adaptive feedback loops.**
+
+<table>
+<tr><td>
+
+**What it does:** Input a stock ticker, get fair value estimates from 7 independent models — weighted by industry classification, validated by backtesting, and auto-adjusted through feedback loops.
+
+**7 Valuation Models:**
+
+| Model | Method |
+|-------|--------|
+| A | Multi-stage DCF (Discounted Cash Flow) |
+| B | Dividend Yield + Gordon Growth Model |
+| C | PER (Price-to-Earnings Ratio) River Chart |
+| D | PBR (Price-to-Book Ratio) |
+| E | CapEx Forward-Looking Valuation |
+| F | EV/EBITDA Enterprise Value Multiples |
+| G | PSR (Price-to-Sales Ratio) |
+
+**System features:**
+- **3 interfaces** — CLI (colored terminal), HTTP API (Express), n8n automation workflow
+- **LLM smart classification** — auto-categorize stocks by industry with guardrails
+- **Backtest engine** — 90d/180d accuracy validation with hit rate, MAE metrics
+- **Adaptive weights** — feedback loop adjusts model weights based on backtest accuracy per category
+- **Portfolio management** — sector allocation, risk metrics, performance tracking
+- **Alert system** — price/valuation/classification change triggers → Telegram/Email push
+
+</td><td width="320">
+
+**Architecture**
+```
+src/
+├── api/         # FinMind API
+├── models/      # 7 valuation models
+│   ├── dcf.js
+│   ├── dividend.js
+│   ├── per.js
+│   ├── pbr.js
+│   ├── capex.js
+│   ├── ev-ebitda.js
+│   └── psr.js
+├── llm/         # LLM guardrails
+├── backtest/    # Accuracy engine
+├── feedback/    # Adaptive weights
+├── portfolio/   # Analytics
+└── report/      # Synthesis
+```
+
+**Data Pipeline**
+```
+FinMind API (8 datasets)
+  ↓ Parallel fetch
+7 Models (parallel calc)
+  ↓ Smart weighting
+LLM Classification
+  ↓ Backtest feedback
+Final Recommendation
+  ↓ n8n automation
+Telegram / Email
+```
+
+</td></tr>
+</table>
+
+```bash
+node src/index.js 2330              # CLI: Analyze TSMC
+node src/server.js                  # Start HTTP API
+curl -X POST localhost:3000/api/analyze/2330
+```
+
+[![Repo](https://img.shields.io/badge/GitHub-TaiwanStockVECalculator-181717?style=flat&logo=github)](https://github.com/Rlin1027/TaiwanStockVECalculator)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white)
+![n8n](https://img.shields.io/badge/n8n-EA4B71?style=flat&logo=n8n&logoColor=white)
 
 ---
 
@@ -34,39 +236,31 @@ I deep-dive into high-impact open-source AI projects — analyzing architectures
 
 ---
 
-## Featured Projects
+## Other Projects
 
 ### AI & Developer Tools
 
 | Project | Description | Stack |
 |---------|-------------|-------|
-| [NanoGemClaw](https://github.com/Rlin1027/NanoGemClaw) | Personal AI assistant — Telegram bot with containerized Gemini agents, real-time dashboard, scheduled tasks & knowledge base | TypeScript, Express, Socket.IO, SQLite |
-| [repo2prompt](https://github.com/Rlin1027/repo2prompt) | Convert git repositories to LLM-friendly prompts with token estimation and smart filtering | Python |
+| [repo2prompt](https://github.com/Rlin1027/repo2prompt) | Convert git repos to LLM-friendly prompts with token estimation | Python |
 | [pocketflow-enhanced](https://github.com/Rlin1027/pocketflow-enhanced) | Visualization, tracing & caching extensions for the 100-line LLM framework | Python |
 
-### Quantitative Finance
+### Quantitative Finance & Full-Stack
 
 | Project | Description | Stack |
 |---------|-------------|-------|
-| [TaiwanStockVECalculator](https://github.com/Rlin1027/TaiwanStockVECalculator) | 7-model stock valuation system (DCF, PER, PBR, Dividend, CapEx, EV/EBITDA, PSR) with LLM classification, backtest feedback loop, n8n automation & Telegram/Email reports | JavaScript, Express, SQLite, n8n |
-| [heritage-hunter](https://github.com/Rlin1027/heritage-hunter) | Gamified unclaimed land search engine for Taiwan with interactive map | Next.js, TypeScript, Supabase |
+| [heritage-hunter](https://github.com/Rlin1027/heritage-hunter) | Gamified unclaimed land search engine for Taiwan with interactive map | Next.js, Supabase |
 | [fire-calculator](https://github.com/Rlin1027/fire-calculator) | Financial Independence / Retire Early calculator | TypeScript |
-
-### Automation & Full-Stack
-
-| Project | Description | Stack |
-|---------|-------------|-------|
 | [n8n-portfolio](https://github.com/Rlin1027/n8n-portfolio) | Production-grade automation workflows with AI, RAG & data pipelines | n8n, Python |
-| [spotify-organizer](https://github.com/Rlin1027/spotify-organizer) | Smart playlist organizer — sort by decade, genre, or mood | TypeScript, Spotify API |
-| [visual-storyteller](https://github.com/Rlin1027/visual-storyteller) | AI visual storytelling app that generates narratives from images | TypeScript, GPT-4 Vision |
+| [SLOTprototype](https://github.com/Rlin1027/SLOTprototype) | Fortune God Slots — Chinese themed slot machine prototype | TypeScript |
 
 ---
 
 ## AI/ML Research Toolkit
 
-I systematically enhance popular open-source AI projects by adding **architecture analysis**, **benchmarking frameworks**, and **optimization toolkits**. Each enhanced repo includes comprehensive test suites, detailed documentation, and practical utilities that the original project lacks.
+I systematically enhance popular open-source AI projects by adding **architecture analysis**, **benchmarking frameworks**, and **optimization toolkits**.
 
-> **25+ projects enhanced** across LLMs, speech synthesis, video generation, AI agents, and training infrastructure — totaling **3,000+ tests** written.
+> **25+ projects enhanced** across LLMs, TTS, Video, Agents, and Training Infrastructure — totaling **3,000+ tests** written.
 
 <details>
 <summary><b>LLM & Language Models</b> — 8 projects</summary>
