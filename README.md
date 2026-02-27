@@ -67,14 +67,14 @@ rosforge config set engine claude-code      # Switch AI engine
 
 ---
 
-### 2. NanoGemClaw — Gemini-Powered Personal AI Assistant
+### 2. NanoGemClaw — Gemini-Powered Google Ecosystem AI Assistant
 
-> **A modular, containerized AI assistant on Telegram — forked from NanoClaw, rebuilt for Gemini.**
+> **A modular AI assistant on Telegram with deep Google ecosystem integration — Drive, Calendar, Tasks, and RAG knowledge search.**
 
 <table>
 <tr><td>
 
-**What it does:** A full-featured AI assistant that runs Gemini agents in isolated containers, delivered via Telegram with a 9-module real-time web dashboard.
+**What it does:** A full-featured AI assistant powered by Gemini, delivered via Telegram with a 12-page real-time web dashboard. 6 built-in Google ecosystem plugins turn it into a unified personal productivity hub — search Drive files, manage Calendar events, sync Tasks, and query a RAG knowledge base, all through natural conversation.
 
 **Key differentiators vs NanoClaw (Claude-based):**
 
@@ -83,18 +83,20 @@ rosforge config set engine claude-code      # Switch AI engine
 | Agent | Claude SDK | Gemini CLI + Direct API |
 | Messaging | WhatsApp | Telegram Bot API |
 | Cost | $100/mo | Free tier (60 req/min) |
-| Architecture | Monolith | Modular monorepo (7 packages) |
+| Architecture | Monolith | Modular monorepo (7 packages + 6 plugins) |
 | Media | Text only | Photo, Voice, Video, Document |
-| Browsing | Search only | Full Playwright automation |
+| Google Integration | None | Drive, Calendar, Tasks, RAG |
+| Tests | ~50 | 902 tests (39 files) |
 
 **Highlights:**
-- **7-package monorepo** — each package reusable independently
-- **Plugin system** — custom tools, hooks, routes, background services
-- **Fast Path** — Direct Gemini API streaming with context caching (75-90% token cost reduction)
-- **Knowledge Base** — per-group FTS5 full-text search
-- **Scheduling** — natural language → cron (`"every morning at 8am"`)
-- **Multi-modal** — voice transcription, image generation (Imagen 3), document parsing
-- **Web Dashboard** — 9-module real-time SPA with Socket.IO
+- **Google Ecosystem** — 6 plugins: OAuth hub, Drive (search/read/summarize), Calendar (full CRUD + availability check), Tasks (bidirectional sync), Drive Knowledge RAG (two-layer vector search), Discord Reporter
+- **Plugin System** — 6 extension points: Gemini Tools, Message Hooks, Express Routes, IPC Handlers, Background Services, Dashboard Extensions
+- **Fast Path** — Direct Gemini API streaming with context caching (75–90% token cost reduction)
+- **Two-Layer RAG** — Pre-indexed Drive embeddings (Layer 1) + live Drive search fallback (Layer 2)
+- **12-page Dashboard** — Overview, Tasks (+Google Tasks), Calendar (+Google Calendar), Drive Browser, Knowledge, Analytics, Memory, Logs, Activity, Settings, Schedule, Group Detail
+- **Scheduling** — Natural language → cron (`"every morning at 8am"`) with Google Tasks auto-sync
+- **Multi-modal** — Voice transcription, image generation (Imagen 3), document parsing
+- **902 tests** across 39 files with 88% line coverage
 
 </td><td width="320">
 
@@ -109,18 +111,26 @@ nanogemclaw/
 │   ├── server/
 │   ├── plugin-api/
 │   └── dashboard/
+├── plugins/
+│   ├── google-auth/
+│   ├── google-drive/
+│   ├── google-tasks/
+│   ├── google-calendar-rw/
+│   ├── drive-knowledge-rag/
+│   └── discord-reporter/
 ├── app/
 ├── container/
 └── docs/
 ```
 
-**Dashboard Modules**
+**Google Tools (16)**
 ```
-Overview    | Logs
-Memory      | Group Detail
-Tasks       | Analytics
-Knowledge   | Calendar
-Settings
+Drive    → search, read, summarize
+Tasks    → create, complete, list
+Calendar → create, list, update,
+           delete, check_availability
+RAG      → search_knowledge
+Discord  → daily/weekly reports
 ```
 
 </td></tr>
@@ -136,6 +146,7 @@ npm install && npm run dev
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
 ![Gemini](https://img.shields.io/badge/Gemini-886FBF?style=flat&logo=googlegemini&logoColor=white)
 ![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=flat&logo=telegram&logoColor=white)
+![Google](https://img.shields.io/badge/Google_APIs-4285F4?style=flat&logo=google&logoColor=white)
 
 ---
 
