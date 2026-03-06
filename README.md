@@ -2,20 +2,108 @@
 
 **Full-stack developer based in Taiwan**, building at the intersection of AI Agents, Robotics, and Quantitative Finance.
 
-I build production systems that solve real problems — an AI-powered ROS migration engine for the robotics community, a Gemini-driven personal assistant on Telegram, and a 7-model quantitative valuation system for Taiwan stocks. When I'm not shipping products, I deep-dive into high-impact open-source AI projects — analyzing architectures, adding benchmarking toolkits, and building optimization layers.
+I build production systems that solve real problems — a Gemini-driven personal assistant on Telegram with MCP integration, an AI-powered ROS migration engine for the robotics community, and a 7-model quantitative valuation system for Taiwan stocks. When I'm not shipping products, I deep-dive into high-impact open-source AI projects — analyzing architectures, adding benchmarking toolkits, and building optimization layers.
 
 ---
 
 ## Flagship Projects
 
-### 1. ROSForge — AI-Powered ROS1 to ROS2 Migration Engine
+### 1. NanoGemClaw — Gemini-Powered Google Ecosystem AI Assistant
+
+> **A modular AI assistant on Telegram with MCP Client Bridge, smart routing, and deep Google ecosystem integration.**
+
+<table>
+<tr><td>
+
+**What it does:** A full-featured AI assistant powered by Gemini, delivered via Telegram with a 12-page real-time web dashboard. 7 built-in plugins (including Google ecosystem) turn it into a unified personal productivity hub — search Drive files, manage Calendar events, sync Tasks, and query a hybrid RAG knowledge base, all through natural conversation.
+
+**Key differentiators vs NanoClaw (Claude-based):**
+
+| | NanoClaw | NanoGemClaw |
+|---|---------|-------------|
+| Agent | Claude SDK | Gemini + MCP Client Bridge |
+| Bot Framework | node-telegram-bot-api | grammY (type-safe) |
+| Messaging | WhatsApp | Telegram Bot API |
+| Cost | $100/mo | Free tier (60 req/min) |
+| Architecture | Monolith | Modular monorepo (8 packages + 7 plugins) |
+| Media | Text only | Photo, Voice, Video, Document |
+| Google Integration | None | Drive, Calendar, Tasks, RAG |
+| Tests | ~50 | 1,244 tests (54 files, 92% coverage) |
+
+**Highlights:**
+- **grammY Bot Framework** — Type-safe, event-driven Telegram integration with rate limiting and message consolidation
+- **MCP Client Bridge** — Model Context Protocol support with per-tool whitelist and Zod schema validation
+- **Smart Routing** — `preferredPath` intelligently switches between fast path (direct API) and container execution
+- **Google Ecosystem** — 7 plugins: OAuth hub, Drive, Calendar (full CRUD), Tasks (bidirectional sync), Drive Knowledge RAG (hybrid search), Discord Reporter, Memorization Service
+- **Plugin System** — 6 extension points: Gemini Tools, Message Hooks, Express Routes, IPC Handlers, Background Services, Dashboard Extensions
+- **Fast Path** — Direct Gemini API streaming with context caching (75-90% token cost reduction) and native function calling
+- **Hybrid Drive RAG** — Pre-indexed embeddings via physical file approach + live Drive search fallback
+- **12-page Dashboard** — Overview, Tasks, Calendar, Drive Browser, Knowledge, Analytics, Memory, Logs, Activity, Settings, Schedule, MCP Management
+- **i18n 100%** — Full interface support for 8 languages
+- **1,244 tests** across 54 files — 92% statement coverage, 84% branch coverage
+
+</td><td width="320">
+
+**Monorepo**
+```
+nanogemclaw/
+├── packages/
+│   ├── core/
+│   ├── db/
+│   ├── gemini/
+│   ├── telegram/
+│   ├── server/
+│   ├── plugin-api/
+│   ├── event-bus/
+│   └── dashboard/
+├── plugins/
+│   ├── google-auth/
+│   ├── google-drive/
+│   ├── google-tasks/
+│   ├── google-calendar-rw/
+│   ├── drive-knowledge-rag/
+│   ├── discord-reporter/
+│   └── memorization-service/
+├── app/
+├── container/
+└── docs/
+```
+
+**Google Tools (16)**
+```
+Drive    → search, read, summarize
+Tasks    → create, complete, list
+Calendar → create, list, update,
+           delete, check_availability
+RAG      → search_knowledge
+Discord  → daily/weekly reports
+```
+
+</td></tr>
+</table>
+
+```bash
+git clone https://github.com/Rlin1027/NanoGemClaw.git
+cp .env.example .env    # Add TELEGRAM_BOT_TOKEN + GEMINI_API_KEY
+npm install && npm run dev
+```
+
+[![Repo](https://img.shields.io/badge/GitHub-NanoGemClaw-181717?style=flat&logo=github)](https://github.com/Rlin1027/NanoGemClaw)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
+![Gemini](https://img.shields.io/badge/Gemini-886FBF?style=flat&logo=googlegemini&logoColor=white)
+![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=flat&logo=telegram&logoColor=white)
+![Google](https://img.shields.io/badge/Google_APIs-4285F4?style=flat&logo=google&logoColor=white)
+
+---
+
+### 2. ROSForge — AI-Powered ROS1 to ROS2 Migration Engine
 
 > **The first AI-driven tool to automate legacy robotics code migration.**
 
 <table>
 <tr><td>
 
-**Problem:** Migrating a mid-size ROS1 package (~5K–10K LoC) takes a senior engineer 2–4 weeks of manual refactoring. With ROS1 Noetic EOL (May 2025), thousands of packages face abandonment.
+**Problem:** Migrating a mid-size ROS1 package (~5K-10K LoC) takes a senior engineer 2-4 weeks of manual refactoring. With ROS1 Noetic EOL (May 2025), thousands of packages face abandonment.
 
 **Solution:** One command to reforge your legacy robotics packages. ROSForge uses LLMs to *understand* code semantics — not just regex-replace — and delivers end-to-end migration with automatic build verification and fix loops.
 
@@ -64,89 +152,6 @@ rosforge config set engine claude-code      # Switch AI engine
 [![Repo](https://img.shields.io/badge/GitHub-ROSForge-181717?style=flat&logo=github)](https://github.com/Rlin1027/ROSForge)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
 ![ROS](https://img.shields.io/badge/ROS-22314E?style=flat&logo=ros&logoColor=white)
-
----
-
-### 2. NanoGemClaw — Gemini-Powered Google Ecosystem AI Assistant
-
-> **A modular AI assistant on Telegram with deep Google ecosystem integration — Drive, Calendar, Tasks, and RAG knowledge search.**
-
-<table>
-<tr><td>
-
-**What it does:** A full-featured AI assistant powered by Gemini, delivered via Telegram with a 12-page real-time web dashboard. 6 built-in Google ecosystem plugins turn it into a unified personal productivity hub — search Drive files, manage Calendar events, sync Tasks, and query a RAG knowledge base, all through natural conversation.
-
-**Key differentiators vs NanoClaw (Claude-based):**
-
-| | NanoClaw | NanoGemClaw |
-|---|---------|-------------|
-| Agent | Claude SDK | Gemini CLI + Direct API |
-| Messaging | WhatsApp | Telegram Bot API |
-| Cost | $100/mo | Free tier (60 req/min) |
-| Architecture | Monolith | Modular monorepo (7 packages + 6 plugins) |
-| Media | Text only | Photo, Voice, Video, Document |
-| Google Integration | None | Drive, Calendar, Tasks, RAG |
-| Tests | ~50 | 902 tests (39 files) |
-
-**Highlights:**
-- **Google Ecosystem** — 6 plugins: OAuth hub, Drive (search/read/summarize), Calendar (full CRUD + availability check), Tasks (bidirectional sync), Drive Knowledge RAG (two-layer vector search), Discord Reporter
-- **Plugin System** — 6 extension points: Gemini Tools, Message Hooks, Express Routes, IPC Handlers, Background Services, Dashboard Extensions
-- **Fast Path** — Direct Gemini API streaming with context caching (75–90% token cost reduction)
-- **Two-Layer RAG** — Pre-indexed Drive embeddings (Layer 1) + live Drive search fallback (Layer 2)
-- **12-page Dashboard** — Overview, Tasks (+Google Tasks), Calendar (+Google Calendar), Drive Browser, Knowledge, Analytics, Memory, Logs, Activity, Settings, Schedule, Group Detail
-- **Scheduling** — Natural language → cron (`"every morning at 8am"`) with Google Tasks auto-sync
-- **Multi-modal** — Voice transcription, image generation (Imagen 3), document parsing
-- **902 tests** across 39 files with 88% line coverage
-
-</td><td width="320">
-
-**Monorepo**
-```
-nanogemclaw/
-├── packages/
-│   ├── core/
-│   ├── db/
-│   ├── gemini/
-│   ├── telegram/
-│   ├── server/
-│   ├── plugin-api/
-│   └── dashboard/
-├── plugins/
-│   ├── google-auth/
-│   ├── google-drive/
-│   ├── google-tasks/
-│   ├── google-calendar-rw/
-│   ├── drive-knowledge-rag/
-│   └── discord-reporter/
-├── app/
-├── container/
-└── docs/
-```
-
-**Google Tools (16)**
-```
-Drive    → search, read, summarize
-Tasks    → create, complete, list
-Calendar → create, list, update,
-           delete, check_availability
-RAG      → search_knowledge
-Discord  → daily/weekly reports
-```
-
-</td></tr>
-</table>
-
-```bash
-git clone https://github.com/Rlin1027/NanoGemClaw.git
-cp .env.example .env    # Add TELEGRAM_BOT_TOKEN + GEMINI_API_KEY
-npm install && npm run dev
-```
-
-[![Repo](https://img.shields.io/badge/GitHub-NanoGemClaw-181717?style=flat&logo=github)](https://github.com/Rlin1027/NanoGemClaw)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
-![Gemini](https://img.shields.io/badge/Gemini-886FBF?style=flat&logo=googlegemini&logoColor=white)
-![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=flat&logo=telegram&logoColor=white)
-![Google](https://img.shields.io/badge/Google_APIs-4285F4?style=flat&logo=google&logoColor=white)
 
 ---
 
