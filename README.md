@@ -1,8 +1,8 @@
 # Overview
 
-**Full-stack developer based in Taiwan**, building at the intersection of AI Agents, Robotics, and Quantitative Finance.
+**Full-stack developer based in Taiwan**, building personal AI agents, vertical tools for the Claude ecosystem, and production systems across robotics and quantitative finance.
 
-I build production systems that solve real problems — a Gemini-driven personal assistant on Telegram with MCP integration, an AI-powered ROS migration engine for the robotics community, and a 7-model quantitative valuation system for Taiwan stocks. When I'm not shipping products, I deep-dive into high-impact open-source AI projects — analyzing architectures, adding benchmarking toolkits, and building optimization layers.
+My work spans three tracks: **🦞 Claw Ecosystem** — a personal AI agent product line delivered through messaging apps with MCP integration (NanoGemClaw); **🤖 Claude Ecosystem** — vertical plugins and skills that extend Claude Code and Claude cowork into specialized workflows (Claudistotle for philosophy research, ai-agent-architect for AI agent architecture design); and **🎯 Domain Applications** — real-world systems solving problems in robotics (ROSForge) and Taiwan equity valuation (TaiwanStockVECalculator). When I'm not shipping products, I deep-dive into high-impact open-source AI projects — analyzing architectures, adding benchmarking toolkits, and building optimization layers.
 
 ---
 
@@ -10,6 +10,7 @@ I build production systems that solve real problems — a Gemini-driven personal
 
 ### 1. NanoGemClaw — Gemini-Powered Google Ecosystem AI Assistant
 
+> `🦞 Claw Ecosystem` · Personal AI Agent  
 > **A modular AI assistant on Telegram with MCP Client Bridge, smart routing, and deep Google ecosystem integration.**
 
 <table>
@@ -96,8 +97,165 @@ npm install && npm run dev
 
 ---
 
-### 2. ROSForge — AI-Powered ROS1 to ROS2 Migration Engine
+### 2. Claudistotle — Philosophy Research Plugin for Claude Code
 
+> `🤖 Claude Ecosystem` · Academic Research Pipeline  
+> **A full-pipeline philosophy research assistant: from topic idea to peer-reviewed paper, entirely inside Claude Code.**
+
+<table>
+<tr><td>
+
+**What it does:** Claudistotle takes you end-to-end from a rough research question to a polished academic paper — searching 8+ academic databases, synthesizing a literature review with verified citations (never fabricates references), writing structured academic prose, and simulating three-round peer review. Built as a Claude Code plugin.
+
+**Pipeline:**
+
+```
+Topic idea → Research design → Literature review → Draft → Peer review → Paper
+```
+
+**Highlights:**
+- **8+ academic databases** — Semantic Scholar, OpenAlex, CORE, arXiv, PhilPapers, Stanford Encyclopedia, Internet Encyclopedia, Notre Dame Philosophical Reviews
+- **Citation integrity** — every reference verified against CrossRef; fabricated citations are impossible by design (BibTeX hooks validate metadata provenance before any `.bib` is written)
+- **6-phase literature review** — environment check → domain decomposition → parallel database search → synthesis planning → section writing → assembly with DOCX export
+- **Three-round peer review simulation** — two AI personas (Athena the reviewer, Calliope the reviser) iterate on argument validity, evidence quality, and writing clarity
+- **Autopilot with self-healing** — cautious / moderate / full autonomy modes; automatic retry on quality gate failures
+- **Text commentary** — close reading and logical annotation of primary philosophical texts, auto-integrated into your draft
+- **Resumable** — interrupted sessions resume from `PROGRESS.md`
+- **Extends [PhilLit](https://github.com/AI-4-Phi/PhilLit)** — the multi-agent research workflow from Syracuse University & University of Hamburg
+
+</td><td width="320">
+
+**Commands (12)**
+```
+setup
+help
+research-design
+literature-review
+text-commentary
+draft
+peer-review
+refine
+validate
+feedback
+autopilot
+philosophy-research
+```
+
+**Output**
+```
+reviews/[project]/
+├── research-proposal.md
+├── literature-review-final.md
+├── literature-all.bib
+├── argument-skeleton.md
+├── paper-draft.md
+├── change-record.md
+├── PROGRESS.md
+└── sources/
+    ├── primary/
+    └── secondary/
+```
+
+</td></tr>
+</table>
+
+```bash
+# Install
+/plugin marketplace add Rlin1027/claudistotle
+/plugin install claudistotle@claudistotle
+
+# Use
+/claudistotle:setup
+/claudistotle:literature-review
+```
+
+[![Repo](https://img.shields.io/badge/GitHub-Claudistotle-181717?style=flat&logo=github)](https://github.com/Rlin1027/claudistotle)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-7C3AED?logo=anthropic&logoColor=white)
+![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
+
+---
+
+### 3. ai-agent-architect — AI Agent Architecture Designer
+
+> `🤖 Claude Ecosystem` · Socratic Agent Design Pipeline  
+> **A Claude cowork skill that interviews you before recommending any AI agent architecture — grounding every design decision in actual requirements.**
+
+<table>
+<tr><td>
+
+**Problem it solves:** Most AI agent failures come from choosing patterns based on technical appeal rather than real business requirements. Teams jump to "multi-agent system" before understanding what problem they're solving.
+
+**Approach:** A structured five-phase pipeline based on Anthropic's *Building Effective Agents* framework. It runs a Socratic deep interview across four clarity dimensions, scores ambiguity in real time, and only produces a recommendation once the problem is actually understood.
+
+**Highlights:**
+- **Five-phase pipeline** — Deep Interview → Recommendation → Blueprint → Functional Modules → Execution Bridge, each with a quality gate
+- **Four-dimension scoring** — Goal (35%) / Constraints (25%) / Domain (25%) / Success Criteria (15%), live progress bars every round
+- **Ambiguity gate** — pipeline won't exit Phase 1 until ambiguity ≤ 20% (soft cap Round 8, hard cap Round 12)
+- **Challenge modes** — auto-triggered Contrarian / Simplifier / Ontologist questions break circular answers and surface hidden assumptions
+- **Decision matrix** — four-axis evaluation (control × complexity × resources × expertise) selects from 8 architecture patterns including hybrid strategies
+- **Single-agent first** — multi-agent systems (10–15× more tokens) only recommended when interview evidence clearly shows a single agent is insufficient
+- **Greenfield & brownfield** — automatically shifts questioning when you mention migration, legacy integration, or rollback criteria
+- **Implementation-ready output** — blueprint with Mermaid architecture diagram, PRD, technical spec, cost analysis spreadsheet, risk matrix, evaluation plan, and starter prototype
+
+</td><td width="320">
+
+**Phases**
+```
+Phase 1 · Deep Interview
+  └ gate: ambiguity ≤ 20%
+Phase 2 · Recommendation
+  └ gate: user confirms
+Phase 3 · Blueprint
+Phase 4 · Functional Modules
+Phase 5 · Execution Bridge
+```
+
+**Patterns (8)**
+```
+Single Agent
+Routing Workflow
+Sequential Workflow
+Parallel Workflow
+Hierarchical Multi-Agent
+Collaborative Multi-Agent
+Evaluator-Optimizer
+Hybrid Strategies
+```
+
+**Artifacts**
+```
+interview-spec.md
+ai-agent-blueprint.md
+prd.md
+tech-spec.md
+cost-analysis.xlsx
+risk-matrix.md
+eval-plan.md
+prototype/
+```
+
+</td></tr>
+</table>
+
+```bash
+git clone https://github.com/Rlin1027/ai-agent-architect.git
+# Place into your Claude cowork skills directory
+# Trigger: mention "AI agent design" or "agent architecture" in your prompt
+```
+
+[![Repo](https://img.shields.io/badge/GitHub-ai--agent--architect-181717?style=flat&logo=github)](https://github.com/Rlin1027/ai-agent-architect)
+![Claude](https://img.shields.io/badge/Claude-cowork-orange)
+![Model](https://img.shields.io/badge/requires-Sonnet%2B-blueviolet)
+![Based On](https://img.shields.io/badge/based_on-Building_Effective_Agents-red)
+
+---
+
+## Domain Applications
+
+### ROSForge — AI-Powered ROS1 to ROS2 Migration Engine
+
+> `🎯 Domain Applications` · Robotics  
 > **The first AI-driven tool to automate legacy robotics code migration.**
 
 <table>
@@ -155,8 +313,9 @@ rosforge config set engine claude-code      # Switch AI engine
 
 ---
 
-### 3. TaiwanStockVECalculator — 7-Model Stock Valuation System
+### TaiwanStockVECalculator — 7-Model Stock Valuation System
 
+> `🎯 Domain Applications` · Quantitative Finance  
 > **Quantitative valuation engine for Taiwan stocks with LLM-enhanced classification and adaptive feedback loops.**
 
 <table>
